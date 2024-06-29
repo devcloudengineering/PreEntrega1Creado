@@ -1,6 +1,7 @@
 import CartWidget from "../components/CartWidget.jsx";
+import PropTypes from "prop-types";
 
-const Navbar = () => {
+const Navbar = ({ contador }) => {
   return (
     <>
       <nav className="bg-lime-400 h-14 flex justify-between items-center ">
@@ -16,12 +17,16 @@ const Navbar = () => {
             Contacto
           </li>
           <li className="cursor-pointer">
-            <CartWidget />
+            <CartWidget contador={contador} />
           </li>
         </ul>
       </nav>
     </>
   );
+};
+
+Navbar.propTypes = {
+  contador: PropTypes.number,
 };
 
 export default Navbar;
