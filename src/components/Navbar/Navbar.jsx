@@ -1,4 +1,4 @@
-import CartWidget from "../components/CartWidget.jsx";
+import CartWidget from "../CartWidget/CartWidget.jsx";
 import PropTypes from "prop-types";
 
 const Navbar = ({ contador }) => {

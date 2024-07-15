@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import alimento from "../assets/alimento.jpg";
-import cama from "../assets/cama.jpg";
-import pala from "../assets/pala.jpg";
-import shampoo from "../assets/shampoo.jpg";
-import snack from "../assets/snack.jpg";
+import alimento from "../../assets/alimento.jpg";
+import cama from "../../assets/cama.jpg";
+import pala from "../../assets/pala.jpg";
+import shampoo from "../../assets/shampoo.jpg";
+import snack from "../../assets/snack.jpg";
 
 const productos = [
   {

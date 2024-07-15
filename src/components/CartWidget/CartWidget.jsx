@@ -1,4 +1,4 @@
-import Cart from "../assets/Cart.png";
+import Cart from "../../assets/Cart.png";
 import PropTypes from "prop-types";
 
 const CartWidget = ({ contador }) => {
