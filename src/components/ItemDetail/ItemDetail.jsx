@@ -9,7 +9,7 @@ const ItemDetail = ({ nombre, precio, descripcion, src, category }) => {
       <p className="italic text-xl">{descripcion}</p>
       <h2 className="font-serif text-2xl font-semibold">{precio}</h2>
       <button className="bg-lime-300 px-2 py-1 rounded italic transition-all hover:text-white hover:scale-110">
-        Comprar
+        {nombre}
       </button>
     </article>
   );
@@ -21,6 +21,7 @@ ItemDetail.propTypes = {
   descripcion: PropTypes.string,
   src: PropTypes.string,
   category: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default ItemDetail;
