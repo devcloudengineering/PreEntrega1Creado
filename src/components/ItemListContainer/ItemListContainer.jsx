@@ -15,7 +15,6 @@ const ItemListContainer = ({ greeting }) => {
       : collection(db, "productos");
     getDocs(collectionRef)
       .then((querySnapshot) => {
-        //console.log(response)
         const productos = querySnapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
