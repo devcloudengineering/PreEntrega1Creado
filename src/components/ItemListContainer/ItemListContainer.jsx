@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";
-import { getProducts, getProductsByCategory } from "../../../asyncMock.js";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import ItemList from "../ItemList/ItemList.jsx";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../services/firebase/index.js";
 
 const ItemListContainer = ({ greeting }) => {
   const [productos, setProductos] = useState([]);
   const { category } = useParams();
 
   useEffect(() => {
-    if (!category) {
-      getProducts()
-        .then((res) => {
-          setProductos(res);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      getProductsByCategory(category)
-        .then((res) => {
-          setProductos(res);
-        })
-        .catch((err) => console.log(err));
-    }
+    const collectionRef = category
+      ? query(collection(db, "productos"), where("category", "==", category))
+      : collection(db, "productos");
+    getDocs(collectionRef)
+      .then((querySnapshot) => {
+        //console.log(response)
+        const productos = querySnapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        setProductos(productos);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {});
   }, [category]);
 
   return (

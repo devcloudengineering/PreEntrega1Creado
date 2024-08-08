@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
-import { getProductsById } from "../../../asyncMock.js";
 import { useParams } from "react-router-dom";
 import ItemDetail from "../ItemDetail/ItemDetail";
+import { db } from "../../services/firebase/index.js";
+import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState();
   const { id } = useParams();
+  console.log("Producto ID:", id);
   useEffect(() => {
-    getProductsById(id)
-      .then((res) => {
-        setProducto(res);
+    getDoc(doc(db, "productos", id))
+      .then((querySnapshot) => {
+        if (querySnapshot.exists()) {
+          console.log("El documento:", querySnapshot.data());
+          const producto = {
+            id: querySnapshot.id,
+            ...querySnapshot.data(),
+          };
+          setProducto(producto);
+        } else {
+          console.log("Documento no existe!");
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("Error al generar el documento:", err));
   }, [id]);
-  console.log(producto);
+
   return (
     <>
       <ItemDetail {...producto} />

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CartWidget from "../CartWidget/CartWidget.jsx";
 import PropTypes from "prop-types";
 
-const Navbar = ({ contador }) => {
+const Navbar = () => {
   return (
     <>
       <nav className="bg-lime-400 h-14 flex justify-between items-center ">
@@ -32,7 +32,7 @@ const Navbar = ({ contador }) => {
           >
             Comodidad
           </Link>
-          <CartWidget contador={contador} />
+          <CartWidget />
         </section>
       </nav>
     </>

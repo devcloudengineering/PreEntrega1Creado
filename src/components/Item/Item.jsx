@@ -6,7 +6,7 @@ const Item = ({ id, nombre, src, precio, descripcion }) => {
     <div className="flex flex-col justify-center items-center gap-2">
       <img className="h-[20rem] object-cover" src={src} alt={descripcion} />
       <h2 className="font-serif text-2xl font-semibold">{nombre}</h2>
-      <span className="font-serif text-lg">{precio}</span>
+      <span className="font-serif text-lg">$ {precio}</span>
       <p className="italic">{descripcion}</p>
       <Link
         to={`/detail/${id}`}
@@ -21,7 +21,7 @@ const Item = ({ id, nombre, src, precio, descripcion }) => {
 Item.propTypes = {
   id: PropTypes.string,
   nombre: PropTypes.string,
-  src: PropTypes.object,
+  src: PropTypes.string,
   precio: PropTypes.string,
   descripcion: PropTypes.string,
 };
