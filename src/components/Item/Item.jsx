@@ -22,7 +22,7 @@ Item.propTypes = {
   id: PropTypes.string,
   nombre: PropTypes.string,
   src: PropTypes.string,
-  precio: PropTypes.string,
+  precio: PropTypes.number,
   descripcion: PropTypes.string,
 };
 

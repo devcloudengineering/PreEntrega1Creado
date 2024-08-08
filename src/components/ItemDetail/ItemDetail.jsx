@@ -49,7 +49,7 @@ const ItemDetail = ({
 
 ItemDetail.propTypes = {
   nombre: PropTypes.string,
-  precio: PropTypes.string,
+  precio: PropTypes.number,
   descripcion: PropTypes.string,
   src: PropTypes.string,
   category: PropTypes.string,
