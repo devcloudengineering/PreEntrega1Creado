@@ -45,7 +45,7 @@ function ItemCount({ initialValue = 1, stock, onAdd }) {
 ItemCount.propTypes = {
   initialValue: PropTypes.number,
   stock: PropTypes.number,
-  onAdd: PropTypes.function,
+  onAdd: PropTypes.any,
 };
 
 export default ItemCount;

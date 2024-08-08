@@ -53,7 +53,7 @@ ItemDetail.propTypes = {
   descripcion: PropTypes.string,
   src: PropTypes.string,
   category: PropTypes.string,
-  stock: PropTypes.string,
+  stock: PropTypes.number,
   id: PropTypes.string,
 };
 
