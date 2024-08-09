@@ -16,21 +16,27 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const [orderCreated, setOrderCreated] = useState(false);
   const [orderData, setOrderData] = useState(null);
+  const [buyer, setBuyer] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    address: "",
+  });
+
   const navigate = useNavigate();
 
   const { cart, totalQuantity, getTotal, clearCart } = useCart();
   const total = getTotal();
 
+  const handleChange = (e) => {
+    setBuyer({ ...buyer, [e.target.name]: e.target.value });
+  };
+
   const createOrder = async () => {
     setLoading(true);
     try {
       const objOrder = {
-        buyer: {
-          firstName: "Gustavo",
-          lastName: "Figueroa",
-          phone: "87761275",
-          address: "La Florida",
-        },
+        buyer,
         items: cart,
         totalQuantity,
         total,
@@ -150,14 +156,51 @@ const Checkout = () => {
             </article>
           ))}
         </div>
-        <div className="mt-6 flex items-center justify-center">
+
+        <form className="mt-6">
+          <div className="grid gap-4">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="Nombre"
+              value={buyer.firstName}
+              onChange={handleChange}
+              className="border p-2 rounded-md"
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Apellido"
+              value={buyer.lastName}
+              onChange={handleChange}
+              className="border p-2 rounded-md"
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Teléfono"
+              value={buyer.phone}
+              onChange={handleChange}
+              className="border p-2 rounded-md"
+            />
+            <input
+              type="text"
+              name="address"
+              placeholder="Dirección"
+              value={buyer.address}
+              onChange={handleChange}
+              className="border p-2 rounded-md"
+            />
+          </div>
+
           <button
-            className="inline-flex w-full bg-lime-400 items-center justify-center rounded-md p-3 text-black italic transition-all hover:text-white hover:scale-110"
+            type="button"
+            className="inline-flex w-full bg-lime-400 items-center justify-center rounded-md p-3 mt-4 text-black italic transition-all hover:text-white hover:scale-110"
             onClick={createOrder}
           >
             Generar Orden
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
