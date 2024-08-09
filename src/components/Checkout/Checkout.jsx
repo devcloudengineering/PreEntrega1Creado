@@ -20,23 +20,39 @@ const Checkout = () => {
     firstName: "",
     lastName: "",
     phone: "",
-    address: "",
+    email: "",
+    confirmEmail: "",
   });
-
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const navigate = useNavigate();
 
   const { cart, totalQuantity, getTotal, clearCart } = useCart();
   const total = getTotal();
 
-  const handleChange = (e) => {
-    setBuyer({ ...buyer, [e.target.name]: e.target.value });
+  useEffect(() => {
+    const { firstName, lastName, phone, email, confirmEmail } = buyer;
+    const isFormValid =
+      firstName && lastName && phone && email && email === confirmEmail;
+    setIsButtonDisabled(!isFormValid);
+  }, [buyer]);
+
+  const handleInputChange = (e) => {
+    setBuyer({
+      ...buyer,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const createOrder = async () => {
     setLoading(true);
     try {
       const objOrder = {
-        buyer,
+        buyer: {
+          firstName: buyer.firstName,
+          lastName: buyer.lastName,
+          phone: buyer.phone,
+          address: "La Florida",
+        },
         items: cart,
         totalQuantity,
         total,
@@ -144,6 +160,50 @@ const Checkout = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
+        <form className="mb-6">
+          <div className="grid gap-4">
+            <input
+              type="text"
+              name="firstName"
+              value={buyer.firstName}
+              onChange={handleInputChange}
+              placeholder="Nombre"
+              className="p-2 border rounded-md"
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={buyer.lastName}
+              onChange={handleInputChange}
+              placeholder="Apellido"
+              className="p-2 border rounded-md"
+            />
+            <input
+              type="tel"
+              name="phone"
+              value={buyer.phone}
+              onChange={handleInputChange}
+              placeholder="Teléfono"
+              className="p-2 border rounded-md"
+            />
+            <input
+              type="email"
+              name="email"
+              value={buyer.email}
+              onChange={handleInputChange}
+              placeholder="Correo electrónico"
+              className="p-2 border rounded-md"
+            />
+            <input
+              type="email"
+              name="confirmEmail"
+              value={buyer.confirmEmail}
+              onChange={handleInputChange}
+              placeholder="Confirmar correo electrónico"
+              className="p-2 border rounded-md"
+            />
+          </div>
+        </form>
         <div className="grid gap-6">
           {cart.map((item) => (
             <article key={item.id} className="bg-lime-300 p-4 rounded-md">
@@ -156,51 +216,15 @@ const Checkout = () => {
             </article>
           ))}
         </div>
-
-        <form className="mt-6">
-          <div className="grid gap-4">
-            <input
-              type="text"
-              name="firstName"
-              placeholder="Nombre"
-              value={buyer.firstName}
-              onChange={handleChange}
-              className="border p-2 rounded-md"
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Apellido"
-              value={buyer.lastName}
-              onChange={handleChange}
-              className="border p-2 rounded-md"
-            />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Teléfono"
-              value={buyer.phone}
-              onChange={handleChange}
-              className="border p-2 rounded-md"
-            />
-            <input
-              type="text"
-              name="address"
-              placeholder="Dirección"
-              value={buyer.address}
-              onChange={handleChange}
-              className="border p-2 rounded-md"
-            />
-          </div>
-
+        <div className="mt-6 flex items-center justify-center">
           <button
-            type="button"
-            className="inline-flex w-full bg-lime-400 items-center justify-center rounded-md p-3 mt-4 text-black italic transition-all hover:text-white hover:scale-110"
+            className="inline-flex w-full bg-lime-400 items-center justify-center rounded-md p-3 text-black italic transition-all hover:text-white hover:scale-110"
             onClick={createOrder}
+            disabled={isButtonDisabled}
           >
             Generar Orden
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
